@@ -16,7 +16,10 @@ class RegisterController extends Controller
     }
 
     public function login_validate(Request $request){
-        return $request->all();
+        
+        return redirect()->route('home');
+        // return view('log.log_home');
+        // return $request->all();
     }
 
     public function singup_validate(Request $request){
@@ -36,7 +39,8 @@ class RegisterController extends Controller
 
             $user->save();
 
-             return redirect()->route('home_log');
+            //  return redirect()->route('home_log');
+            //  return view('log.log_home');
         }
 
     }

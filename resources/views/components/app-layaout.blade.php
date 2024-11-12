@@ -6,7 +6,7 @@
 @endphp
 
 <!DOCTYPE html>
-<html lang="sp">
+<html lang="sp" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
     <title> {{ $title ?? 'Title' }} </title>
 </head>
 
-<body class="min-h-screen overflow-hidden">
+<body class="min-h-screen overflow-hidden dark">
     <header>
         <!-- Barra de navegación fija en la parte superior -->
         <nav class="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 w-full z-50">
@@ -24,7 +24,7 @@
                 <a href="https://www.instagram.com/andrexito.vip/"
                     class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="https://mangusprod.s3.us-east-2.amazonaws.com/talentotechoriente/tenancy/pictures/jfBc-Xv3y.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2ULGKIBMK3NU2DW3%2F20241110%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20241110T012834Z&X-Amz-Expires=604800&X-Amz-Signature=b74173feaa23b2ed1e07261528482da1263397ef9695d4a3e2da01e0d7772b4c&X-Amz-SignedHeaders=host"
-                        class="h-8" alt="Flowbite Logo" />
+                        class="h-8" alt="Logo" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
                         style="margin: 0">TalentoTech</span>
                 </a>
@@ -63,6 +63,7 @@
     </main>
 
     <footer></footer>
+    {{-- <script src=" {{ asset{'js/validation.js'}}} "></script> --}}
 </body>
 
 </html>

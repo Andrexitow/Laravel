@@ -8,7 +8,7 @@ use App\Http\Controllers\RegisterController;
 Route::get('/', HomeController::class)->name('home');
 
 Route::get('/posts',  [PostController::class, 'index'])->name('public');
-Route::get('/contant', [PostController::class, 'index_contac'])->name('contacto');
+Route::get('/contact', [PostController::class, 'index_contac'])->name('contacto');
 
 
 Route::get('/login', [RegisterController::class, 'login'])->name('login');

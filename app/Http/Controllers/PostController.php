@@ -8,8 +8,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Post::orderBy('id', 'desc')->get();
-
+        $posts = Post::orderBy('id', 'desc')->paginate(3);
         return view('posts.index', compact('posts'));
     }
 
@@ -21,9 +20,8 @@ class PostController extends Controller
         return view('posts.create');
     }
 
-    public function show($post){
-
-        $post = Post::find($post);
+    public function show(Post $post){
+        // $post = Post::find($post);
         return view('posts.show', compact('post'));
     }
 }
