@@ -2,46 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SingUpRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function login(){
+    public function login()
+    {
         return view('register.login');
     }
 
-    public function singup(){
+    public function singup()
+    {
         return view('register.singup');
     }
 
-    public function login_validate(Request $request){
-        
+    public function login_validate(Request $request)
+    {
+
         return redirect()->route('home');
         // return view('log.log_home');
         // return $request->all();
     }
 
-    public function singup_validate(Request $request){
+    public function singup_validate(SingUpRequest $request)
+    {
+        $user = new User();
 
-        $name = $request->name;
-        $email = $request->email;
-        $password = $request->password;
-        $confirm_password = $request->confirm_password;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
 
-        if(true){
+        $user->save();
 
-            $user = new User();
-
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-
-            $user->save();
-
-            //  return redirect()->route('home_log');
-            //  return view('log.log_home');
-        }
-
+        // Redirigir al usuario a la página de inicio de sesión con un mensaje de éxito
+        return redirect()->route('login')->with('success', 'Cuenta creada exitosamente. Inicia sesión con tus credenciales.');
     }
 }
