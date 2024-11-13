@@ -63,7 +63,6 @@
     </main>
 
     <footer></footer>
-    {{-- <script src=" {{ asset{'js/validation.js'}}} "></script> --}}
 </body>
 
 </html>

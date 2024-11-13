@@ -8,26 +8,15 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function login()
+    public function index()
     {
-        return view('register.login');
-    }
-
-    public function singup()
-    {
-        return view('register.singup');
-    }
-
-    public function login_validate(Request $request)
-    {
-
-        return redirect()->route('home');
-        // return view('log.log_home');
-        // return $request->all();
+        return view('auth.singup');
     }
 
     public function singup_validate(SingUpRequest $request)
     {
+        dd('El método singup_validate se está ejecutando');
+
         $user = new User();
 
         $user->name = $request->name;
@@ -37,6 +26,6 @@ class RegisterController extends Controller
         $user->save();
 
         // Redirigir al usuario a la página de inicio de sesión con un mensaje de éxito
-        return redirect()->route('login')->with('success', 'Cuenta creada exitosamente. Inicia sesión con tus credenciales.');
+        return redirect()->route('login');
     }
 }
