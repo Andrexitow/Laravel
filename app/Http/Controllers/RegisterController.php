@@ -15,8 +15,6 @@ class RegisterController extends Controller
 
     public function singup_validate(SingUpRequest $request)
     {
-        dd('El método singup_validate se está ejecutando');
-
         $user = new User();
 
         $user->name = $request->name;
@@ -25,7 +23,8 @@ class RegisterController extends Controller
 
         $user->save();
 
-        // Redirigir al usuario a la página de inicio de sesión con un mensaje de éxito
-        return redirect()->route('login');
+        session()->flash('success', '¡Registro exitoso! Por favor inicia sesión.');
+
+        return redirect()->route('login');  
     }
 }

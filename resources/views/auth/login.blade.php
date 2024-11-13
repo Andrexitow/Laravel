@@ -2,12 +2,22 @@
     <x-slot name='title'>TalentoTech | Login</x-slot>
 
     @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+        <div id="success-alert"
+            class="flex items-center p-4 mb-4 text-green-800 bg-green-100 border border-green-300 rounded-lg">
+            <img src="{{ asset('images/icons-check.gif') }}" alt="Success" class="w-8 h-8 mr-3">
+            <span class="text-lg font-semibold">{{ session('success') }}</span>
         </div>
+        <script>
+            setTimeout(() => {
+                const alert = document.getElementById('success-alert');
+                if (alert) {
+                    alert.style.display = 'none';
+                }
+            }, 5000); // Ocultar después de 5 segundos
+        </script>
     @endif
 
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+    <div class="flex flex-col items-center justify-center px-6 mx-auto md:h-screen lg:py-0">
         <div
             class="w-full bg-white rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-white mt-10">

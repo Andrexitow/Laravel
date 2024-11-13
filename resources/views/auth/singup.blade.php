@@ -1,17 +1,6 @@
 <x-app-layaout>
     <x-slot name='title'>TalentoTech | Sing Up</x-slot>
 
-    {{-- @if ($errors->any())
-        <div>
-            <h1>Errores</h1>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li> {{ $error }} </li>
-                @endforeach
-            </ul>
-        </div>
-    @endif --}}
-
     <section class="bg-white-50 dark:bg-white-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
             <div
@@ -58,11 +47,13 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                             <input type="password" name="password" id="password" placeholder="••••••••"
                                 class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-                                @error('password') border-orange-400 focus:border-orange-400 focus:ring-orange-400 @else border-gray-300 dark:border-gray-600 @enderror" required>
+        @error('password') border-orange-400 focus:border-orange-400 focus:ring-orange-400 @else border-gray-300 dark:border-gray-600 @enderror"
+                                required>
                             @error('password')
                                 <p class="mt-2 text-sm text-orange-400 dark:text-orange-400"> {{ $message }} </p>
                             @enderror
                         </div>
+
                         <div>
                             <label for="password_confirmation"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
@@ -70,21 +61,23 @@
                             <input type="password" name="password_confirmation" id="password_confirmation"
                                 placeholder="••••••••"
                                 class="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-                                @error('password_confirmation') border-orange-400 focus:border-orange-400 focus:ring-orange-400 @else border-gray-300 dark:border-gray-600 @enderror" required>
+        @error('password_confirmation') border-orange-400 focus:border-orange-400 focus:ring-orange-400 @else border-gray-300 dark:border-gray-600 @enderror"
+                                required>
                             @error('password_confirmation')
                                 <p class="mt-2 text-sm text-orange-400 dark:text-orange-400"> {{ $message }} </p>
                             @enderror
-
                         </div>
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
-                                <input id="terms" aria-describedby="terms" type="checkbox" name="terms" 
+                                <input id="terms" aria-describedby="terms" type="checkbox" name="terms"
                                     class="w-4 h-4 border text-gray-900 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800
-                                    @error('terms') border-red-500 focus:border-red-500 focus:ring-red-500 @else border-gray-300 dark:border-gray-600 @enderror" required>
+                                    @error('terms') border-red-500 focus:border-red-500 focus:ring-red-500 @else border-gray-300 dark:border-gray-600 @enderror"
+                                    required>
                             </div>
                             <div class="ml-3 text-sm">
                                 <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the
-                                    <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
+                                    <a class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                                        href="#">Terms and Conditions</a></label>
                             </div>
                         </div>
                         @error('terms')
