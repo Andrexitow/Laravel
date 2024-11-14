@@ -1,8 +1,6 @@
-{{-- <x-app-log-layaout> --}}
-<x-app-logger-home>
+<x-user-layaout>
     <x-slot name='title'>TalentoTech | {{ $users->name }}</x-slot>
-    <x-slot name='UserName'> {{ $users->name }} </x-slot>
-    <x-slot name='UserEmail'> {{ $users->email }} </x-slot>
+
     <script>
         window.addEventListener('beforeunload', function(event) {
             fetch('{{ route('logout') }}', {
@@ -22,6 +20,5 @@
                 });
         });
     </script>
-</x-app-logger-home>
+</x-user-layaout>
 
-{{-- </x-app-log-layaout> --}}

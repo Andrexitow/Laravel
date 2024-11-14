@@ -7,7 +7,6 @@ use App\Models\Profile;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
 use function Laravel\Prompts\password;
 
 class UserSeeder extends Seeder
@@ -19,17 +18,14 @@ class UserSeeder extends Seeder
         $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
-        // Crear usuarios y asignarles roles y perfiles
-
         $student = User::create([
             'name' => 'Estudiante',
             'email' => 'example@gmail.com',
             'password' => bcrypt('andresito'),
-            'email_verified_at' => null, // O la fecha correspondiente
+            'email_verified_at' => null, 
         ]);
-        $student->roles()->attach($studentRole); // Asignar rol 'student'
+        $student->roles()->attach($studentRole);
 
-        // Crear perfil para el estudiante
         Profile::create([
             'user_id' => $student->id,
             'nombre' => 'Estudiante',
@@ -46,9 +42,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('andresito'),
             'email_verified_at' => null,
         ]);
-        $teacher->roles()->attach($teacherRole); // Asignar rol 'teacher'
+        $teacher->roles()->attach($teacherRole); 
 
-        // Crear perfil para el docente
         Profile::create([
             'user_id' => $teacher->id,
             'nombre' => 'Docente',
@@ -65,9 +60,8 @@ class UserSeeder extends Seeder
             'password' => bcrypt('andresito'),
             'email_verified_at' => null,
         ]);
-        $admin->roles()->attach($adminRole); // Asignar rol 'admin'
+        $admin->roles()->attach($adminRole); 
 
-        // Crear perfil para el admin
         Profile::create([
             'user_id' => $admin->id,
             'nombre' => 'Admin',

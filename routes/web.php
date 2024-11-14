@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SubmissionController;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -21,5 +23,11 @@ Route::get('/contact', [PostController::class, 'index_contac'])->name('contacto'
 
 
 
-Route::get('/posts/create', [PostController::class, 'create']); 
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('show'); 
+Route::get('/posts/create', [PostController::class, 'create']);
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('show');
+
+Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
+Route::get('/courses/{course}/publications', [CourseController::class, 'show'])->name('course.show');
+Route::get('/courses/{course}/publications/{publication}', [CourseController::class, 'publication'])->name('course.publication');
+// Route::post('/courses/{course}/publications/{publication}/submit', [SubmissionController::class, 'store'])->name('submission.store');
+Route::post('/courses/{course}/publications/{publication}/submit', [SubmissionController::class, 'store'])->name('submission.store')->middleware('auth');

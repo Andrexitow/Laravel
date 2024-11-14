@@ -1,3 +1,15 @@
+@php
+    $isHomeEnable =
+        Route::currentRouteName() === 'home'
+            ? 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
+            : 'dark:text-white text-gray-600 dark:text-gray-500';
+
+    $isCourseEnable =
+        Route::currentRouteName() === 'course.index'
+            ? 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
+            : 'dark:text-white text-gray-600 dark:text-gray-500';
+@endphp
+
 <!DOCTYPE html>
 <html lang="sp" class="dark">
 
@@ -14,9 +26,10 @@
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="https://www.instagram.com/andrexito.vip/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <a href="https://www.instagram.com/andrexito.vip/"
+                    class="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src="https://mangusprod.s3.us-east-2.amazonaws.com/talentotechoriente/tenancy/pictures/jfBc-Xv3y.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2ULGKIBMK3NU2DW3%2F20241110%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20241110T012834Z&X-Amz-Expires=604800&X-Amz-Signature=b74173feaa23b2ed1e07261528482da1263397ef9695d4a3e2da01e0d7772b4c&X-Amz-SignedHeaders=host"
-                        class="h-8" alt="Flowbite Logo" />
+                        class="h-8" alt="Logo" />
                     <span
                         class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">TalentoTech</span>
                 </a>
@@ -31,10 +44,10 @@
                     <div class="absolute hidden top-10 right-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                         id="user-dropdown">
                         <div class="px-4 py-3">
-                            <span class="block text-sm text-gray-900 dark:text-white"> {{ $UserName ?? 'UserName' }}
+                            <span class="block text-sm text-gray-900 dark:text-white"> {{ $user->name ?? 'UserName' }}
                             </span>
                             <span class="block text-sm text-gray-500 truncate dark:text-gray-400">
-                                {{ $UserEmail ?? 'UserEmail' }} </span>
+                                {{ $user->email ?? 'UserEmail' }} </span>
                         </div>
                         <ul class="py-2" aria-labelledby="user-menu-button">
                             <li><a href="#"
@@ -69,11 +82,10 @@
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
                     <ul
                         class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        <li><a href="#"
-                                class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                                aria-current="page">Home</a></li>
-                        <li><a href="#"
-                                class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                        <li><a href=" {{ route('home') }} " class="{{ $isHomeEnable }}" aria-current="page">Home</a>
+                        </li>
+                        <li><a href=" {{ route('course.index') }} "
+                                class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ $isCourseEnable }}">Course</a>
                         </li>
                         <li><a href="#"
                                 class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
