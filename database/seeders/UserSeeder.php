@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,27 +13,37 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = User::create([
+        // Primero aseguramos que los roles estén en la base de datos
+        $studentRole = Role::firstOrCreate(['name' => 'student']);
+        $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+
+        // Crear usuarios y asignarles roles
+        $student = User::create([
             'name' => 'Estudiante',
             'email' => 'example@gmail.com',
             'password' => bcrypt('andresito'),
-            'role' => 'student',
+            'email_verified_at' => null, // O la fecha correspondiente
         ]);
 
-        $user = User::create([
+        $student->roles()->attach($studentRole); // Asignar rol 'student'
+
+        $teacher = User::create([
             'name' => 'Docente',
-            'email' => 'Docente@gmail.com',
+            'email' => 'docente@gmail.com',
             'password' => bcrypt('andresito'),
-            'role' => 'teacher',
+            'email_verified_at' => null,
         ]);
 
-        $user = User::create([
+        $teacher->roles()->attach($teacherRole); // Asignar rol 'teacher'
+
+        $admin = User::create([
             'name' => 'Admin',
-            'email' => 'Admin@gmail.com',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('andresito'),
-            'role' => 'admin',
+            'email_verified_at' => null,
         ]);
-        
-        // User::factory(5)->create();
+
+        $admin->roles()->attach($adminRole); // Asignar rol 'admin'
     }
 }

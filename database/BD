@@ -1,0 +1,98 @@
+-- CREATE TABLE courses (
+--     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     title VARCHAR(255) NOT NULL,
+--     description TEXT NULL,
+--     start_date DATE NULL,
+--     end_date DATE NULL,
+--     is_active BOOLEAN DEFAULT TRUE,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
+
+-- CREATE TABLE users (
+--     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     username VARCHAR(50) UNIQUE NOT NULL,
+--     email VARCHAR(255) UNIQUE NOT NULL,
+--     password VARCHAR(255) NOT NULL,
+--     email_verified_at TIMESTAMP NULL,
+--     is_active BOOLEAN DEFAULT TRUE,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
+
+-- CREATE TABLE profiles (
+--     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     user_id BIGINT UNSIGNED NOT NULL,
+--     nombre VARCHAR(100) NOT NULL,
+--     apellido VARCHAR(100) NOT NULL,
+--     telefono VARCHAR(20) NULL,
+--     direccion VARCHAR(255) NULL,
+--     fecha_nacimiento DATE NULL,
+--     foto_perfil VARCHAR(255) NULL,
+--     bio TEXT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+-- );
+
+-- CREATE TABLE roles (
+--     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     name ENUM('student', 'teacher', 'admin') UNIQUE NOT NULL,
+--     description TEXT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+-- );
+
+-- CREATE TABLE role_user (
+--     user_id BIGINT UNSIGNED,
+--     role_id BIGINT UNSIGNED,
+--     PRIMARY KEY (user_id, role_id),
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+--     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+-- );
+
+-- CREATE TABLE course_user (
+--     user_id BIGINT UNSIGNED,
+--     course_id BIGINT UNSIGNED,
+--     role ENUM('student', 'teacher') NOT NULL,
+--     enrollment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     PRIMARY KEY (user_id, course_id),
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+--     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE
+-- );
+
+-- CREATE TABLE publications (
+--     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     course_id BIGINT UNSIGNED NOT NULL,
+--     user_id BIGINT UNSIGNED NULL, -- Permitir NULL para ON DELETE SET NULL
+--     title VARCHAR(255) NOT NULL,
+--     content TEXT NOT NULL,
+--     deadline TIMESTAMP NULL,
+--     is_active BOOLEAN DEFAULT TRUE,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--     FOREIGN KEY (course_id) REFERENCES courses(id) ON DELETE CASCADE,
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+-- );
+
+-- CREATE TABLE submissions (
+--     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     publication_id BIGINT UNSIGNED NOT NULL,
+--     user_id BIGINT UNSIGNED NOT NULL,
+--     content TEXT NOT NULL, -- Puede ser un texto o una URL
+--     submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     grade DECIMAL(5, 2) NULL, -- Calificación para el trabajo
+--     feedback TEXT NULL, -- Retroalimentación del docente
+--     FOREIGN KEY (publication_id) REFERENCES publications(id) ON DELETE CASCADE,
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+-- );
+
+-- CREATE TABLE comments (
+--     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+--     publication_id BIGINT UNSIGNED NOT NULL,
+--     user_id BIGINT UNSIGNED NOT NULL,
+--     content TEXT NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (publication_id) REFERENCES publications(id) ON DELETE CASCADE,
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+-- );

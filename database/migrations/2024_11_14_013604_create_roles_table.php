@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug')->uniqid();
-            $table->text('content');
-            $table->string('category');
-            $table->boolean('is_active');
-            $table->timestamp('published_at')->nullable();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->enum('name', ['student', 'teacher', 'admin'])->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('roles');
     }
 };
