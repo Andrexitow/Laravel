@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Profile;
 use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,15 +19,26 @@ class UserSeeder extends Seeder
         $teacherRole = Role::firstOrCreate(['name' => 'teacher']);
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
-        // Crear usuarios y asignarles roles
+        // Crear usuarios y asignarles roles y perfiles
+
         $student = User::create([
             'name' => 'Estudiante',
             'email' => 'example@gmail.com',
             'password' => bcrypt('andresito'),
             'email_verified_at' => null, // O la fecha correspondiente
         ]);
-
         $student->roles()->attach($studentRole); // Asignar rol 'student'
+
+        // Crear perfil para el estudiante
+        Profile::create([
+            'user_id' => $student->id,
+            'nombre' => 'Estudiante',
+            'apellido' => 'Apellido',
+            'telefono' => '1234567890',
+            'direccion' => 'Dirección del estudiante',
+            'fecha_nacimiento' => '2000-01-01',
+            'bio' => 'Biografía del estudiante',
+        ]);
 
         $teacher = User::create([
             'name' => 'Docente',
@@ -34,8 +46,18 @@ class UserSeeder extends Seeder
             'password' => bcrypt('andresito'),
             'email_verified_at' => null,
         ]);
-
         $teacher->roles()->attach($teacherRole); // Asignar rol 'teacher'
+
+        // Crear perfil para el docente
+        Profile::create([
+            'user_id' => $teacher->id,
+            'nombre' => 'Docente',
+            'apellido' => 'Apellido',
+            'telefono' => '0987654321',
+            'direccion' => 'Dirección del docente',
+            'fecha_nacimiento' => '1985-01-01',
+            'bio' => 'Biografía del docente',
+        ]);
 
         $admin = User::create([
             'name' => 'Admin',
@@ -43,7 +65,17 @@ class UserSeeder extends Seeder
             'password' => bcrypt('andresito'),
             'email_verified_at' => null,
         ]);
-
         $admin->roles()->attach($adminRole); // Asignar rol 'admin'
+
+        // Crear perfil para el admin
+        Profile::create([
+            'user_id' => $admin->id,
+            'nombre' => 'Admin',
+            'apellido' => 'Admin',
+            'telefono' => '1112223333',
+            'direccion' => 'Dirección del admin',
+            'fecha_nacimiento' => '1990-01-01',
+            'bio' => 'Biografía del admin',
+        ]);
     }
 }
