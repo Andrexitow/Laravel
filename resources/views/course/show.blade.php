@@ -1,4 +1,4 @@
-<x-user-layaout>
+<x-user-layout>
     <x-slot name="title">TalentoTech | Show</x-slot>
 
     <div class="bg-white rounded-lg shadow-lg p-6 max-w-2xl mx-auto my-8">
@@ -22,4 +22,4 @@
 
         </div>
     </div>
-</x-user-layaout>
+</x-user-layout>

@@ -1,3 +1,3 @@
-<x-app-layaout type='blue'>
+<x-app-layout type='blue'>
     <x-slot name='title'>TalentoTech | Contacto</x-slot>
-</x-app-layaout>
+</x-app-layout>

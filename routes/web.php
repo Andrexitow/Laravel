@@ -15,7 +15,7 @@ Route::post('/login', [LoginController::class, 'login_validate'])->name('login_v
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('singup');
-Route::post('/register', [RegisterController::class, 'singup_validate'])->name('singupvalidate');
+Route::post('/register', [RegisterController::class, 'signup_validate'])->name('singupvalidate');
 
 
 Route::get('/posts',  [PostController::class, 'index'])->name('public');
@@ -29,5 +29,9 @@ Route::get('/posts/{post}', [PostController::class, 'show'])->name('show');
 Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
 Route::get('/courses/{course}/publications', [CourseController::class, 'show'])->name('course.show');
 Route::get('/courses/{course}/publications/{publication}', [CourseController::class, 'publication'])->name('course.publication');
-// Route::post('/courses/{course}/publications/{publication}/submit', [SubmissionController::class, 'store'])->name('submission.store');
 Route::post('/courses/{course}/publications/{publication}/submit', [SubmissionController::class, 'store'])->name('submission.store')->middleware('auth');
+
+Route::get('/course/create', [CourseController::class, 'index_create'])->name('course.create');
+
+
+// Route::post('/courses/{course}/publications/{publication}/submit', [SubmissionController::class, 'store'])->name('submission.store');

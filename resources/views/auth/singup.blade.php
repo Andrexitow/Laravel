@@ -1,4 +1,4 @@
-<x-app-layaout>
+<x-app-layout>
     <x-slot name='title'>TalentoTech | Sing Up</x-slot>
 
     <section class="bg-white-50 dark:bg-white-900">
@@ -98,4 +98,4 @@
         </div>
     </section>
 
-</x-app-layaout>
+</x-app-layout>

@@ -1,4 +1,4 @@
-<x-app-layaout>
+<x-app-layout>
     <x-slot name='title'>TalentoTech | Login</x-slot>
 
     @if (session('success'))
@@ -74,4 +74,4 @@
             </div>
         </div>
     </div>
-</x-app-layaout>
+</x-app-layout>

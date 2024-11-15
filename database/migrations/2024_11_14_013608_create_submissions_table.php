@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('submitted_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->decimal('grade', 5, 2)->nullable();
             $table->text('feedback')->nullable();
+            $table->integer('attempts')->default(1);
             $table->timestamps();
 
             $table->foreign('publication_id')->references('id')->on('publications')->onDelete('cascade');

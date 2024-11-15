@@ -1,4 +1,4 @@
-<x-user-layaout>
+<x-user-layout>
     <x-slot name='title'>TalentoTech | {{ $users->name }}</x-slot>
 
     <script>
@@ -20,5 +20,5 @@
                 });
         });
     </script>
-</x-user-layaout>
+</x-user-layout>
 

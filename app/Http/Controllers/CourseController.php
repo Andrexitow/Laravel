@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Submission;
 use App\Models\Publication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -25,9 +27,23 @@ class CourseController extends Controller
 
     public function publication($courseId, $publicationId)
     {
-        $publication = Publication::where('id', $publicationId)->where('course_id', $courseId)->firstOrFail();
-        return view('course.showPublication', compact('publication', 'courseId'));
+        $publication = Publication::where('id', $publicationId)
+            ->where('course_id', $courseId)
+            ->firstOrFail();
+
+        // Obtener la entrega (si existe) de este usuario para la publicación
+        $submission = Submission::where('publication_id', $publicationId)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        return view('course.showPublication', compact('publication', 'courseId', 'submission'));
     }
+
+    // public function publication($courseId, $publicationId)
+    // {
+    //     $publication = Publication::where('id', $publicationId)->where('course_id', $courseId)->firstOrFail();
+    //     return view('course.showPublication', compact('publication', 'courseId'));
+    // }
 
     public function uploadFile(Request $request, $courseId, $publicationId)
     {
@@ -41,5 +57,10 @@ class CourseController extends Controller
         }
 
         return back()->withErrors(['file' => 'Error al subir el archivo']);
+    }
+
+    public function index_create() {
+
+        return view('course.create');
     }
 }
