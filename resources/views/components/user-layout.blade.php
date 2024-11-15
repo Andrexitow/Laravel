@@ -22,7 +22,7 @@
     <title> {{ $title ?? 'Title' }} </title>
 </head>
 
-<body class="min-h-screen overflow-hidden dark">
+<body class="min-h-screen dark">
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -38,7 +38,7 @@
                         class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                         id="user-menu-button" aria-expanded="false">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full" src=" {{ asset('images/avatar.png') }} " alt="user photo">
+                        <img class="w-8 h-8 rounded-full" src="{{ asset($profile->foto_perfil) }}" alt="user photo">
                     </button>
                     <!-- Dropdown menu -->
                     <div class="absolute hidden top-10 right-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
@@ -53,7 +53,7 @@
                             <li><a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="  {{ route('index.settings') }}"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
                             </li>
                             <li><a href="#"
@@ -123,7 +123,7 @@
         </script>
     </header>
 
-    <main class="pt-16 min-h-screen overflow-hidden">
+    <main class="min-h-screen">
 
         {{ $slot }}
 

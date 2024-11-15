@@ -16,7 +16,7 @@
     <title> {{ $title ?? 'Title' }} </title>
 </head>
 
-<body class="min-h-screen overflow-hidden dark">
+<body class="min-h-screen dark">
     <header>
         <!-- Barra de navegación fija en la parte superior -->
         <nav class="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 w-full z-50">
@@ -56,7 +56,7 @@
         </nav>
     </header>
 
-    <main class="pt-16 min-h-screen overflow-hidden">
+    <main class="min-h-screen">
 
         {{ $slot }}
 

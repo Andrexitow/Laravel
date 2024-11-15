@@ -24,7 +24,7 @@ class SingUpRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed', // Esta regla es la que valida que ambas contraseñas coincidan
+            'password' => 'required|string|min:8|confirmed', 
             'terms' => 'required|accepted',
 
         ];

@@ -12,8 +12,9 @@ class HomeController extends Controller
 
         if (Auth::check()) {
             $users = Auth::user();
+            $profile = $users->profile;
 
-            return view('welcome-user', compact('users'));
+            return view('welcome-user', compact('users', 'profile'));
         } else {
             return view('welcome-app');
         }

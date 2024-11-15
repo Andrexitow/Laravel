@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->roles->contains('name', $role);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

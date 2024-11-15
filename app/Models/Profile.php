@@ -24,7 +24,6 @@ class Profile extends Model
         'bio',
     ];
 
-    // Define la relación con el modelo User (un perfil pertenece a un usuario)
     public function user()
     {
         return $this->belongsTo(User::class);

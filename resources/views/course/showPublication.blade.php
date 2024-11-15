@@ -54,10 +54,12 @@
                 <p>Fecha de entrega: {{ $submission->submitted_at }}</p>
                 <p>Archivo: <a href="{{ Storage::url($submission->content) }}" target="_blank"
                         class="text-blue-600 hover:underline">Ver archivo</a></p>
-                <p>Número de intentos: {{ $submission->attempts }}</p>
+                <p>Número de intentos: {{ $submission->attempts }} (Intentos restantes: {{ 2 - $submission->attempts }})
+                </p>
             </div>
         @else
             <p class="mt-4 text-gray-600">Aún no has realizado una entrega para esta publicación.</p>
+            <p class="text-gray-600">Intentos restantes: 2</p>
         @endif
     </div>
 

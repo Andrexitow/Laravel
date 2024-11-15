@@ -22,7 +22,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            $view->with('user', Auth::user());
+            $user = Auth::user();
+            $profile = $user ? $user->profile : null;  // Suponiendo que 'profile' es una relación en el modelo User
+    
+            $view->with('user', $user)->with('profile', $profile);
         });
     }
 }
