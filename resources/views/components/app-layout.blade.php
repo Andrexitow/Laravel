@@ -16,7 +16,7 @@
     <title> {{ $title ?? 'Title' }} </title>
 </head>
 
-<body class="min-h-screen dark">
+<body class="mt-16 min-h-screen dark">
     <header>
         <!-- Barra de navegación fija en la parte superior -->
         <nav class="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 left-0 w-full z-50">
@@ -44,7 +44,7 @@
                         </li>
                         <li>
                             <a href="{{ route('public') }}"
-                                class="block py-2 px-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700 {{ $isPublicEnable}}">Publicaciones</a>
+                                class="block py-2 px-3 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-600 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700 {{ $isPublicEnable}}">Cursos</a>
                         </li>
                         <li>
                             <a href="{{ route('contacto') }}"

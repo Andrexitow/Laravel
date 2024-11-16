@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
 
         $student = User::create([
-            'name' => 'Estudiante',
-            'email' => 'example@gmail.com',
+            'name' => 'Estudiante1',
+            'email' => 'example1@gmail.com',
             'password' => bcrypt('andresito'),
             'email_verified_at' => null, 
         ]);
@@ -28,7 +28,43 @@ class UserSeeder extends Seeder
 
         Profile::create([
             'user_id' => $student->id,
-            'nombre' => 'Estudiante',
+            'nombre' => 'Estudiante1',
+            'apellido' => 'Apellido',
+            'telefono' => '1234567890',
+            'direccion' => 'Dirección del estudiante',
+            'fecha_nacimiento' => '2000-01-01',
+            'bio' => 'Biografía del estudiante',
+        ]);
+
+        $student = User::create([
+            'name' => 'Estudiante2',
+            'email' => 'example2@gmail.com',
+            'password' => bcrypt('andresito'),
+            'email_verified_at' => null, 
+        ]);
+        $student->roles()->attach($studentRole);
+
+        Profile::create([
+            'user_id' => $student->id,
+            'nombre' => 'Estudiante2',
+            'apellido' => 'Apellido',
+            'telefono' => '1234567890',
+            'direccion' => 'Dirección del estudiante',
+            'fecha_nacimiento' => '2000-01-01',
+            'bio' => 'Biografía del estudiante',
+        ]);
+
+        $student = User::create([
+            'name' => 'Estudiante3',
+            'email' => 'example3@gmail.com',
+            'password' => bcrypt('andresito'),
+            'email_verified_at' => null, 
+        ]);
+        $student->roles()->attach($studentRole);
+
+        Profile::create([
+            'user_id' => $student->id,
+            'nombre' => 'Estudiante3',
             'apellido' => 'Apellido',
             'telefono' => '1234567890',
             'direccion' => 'Dirección del estudiante',
@@ -47,6 +83,24 @@ class UserSeeder extends Seeder
         Profile::create([
             'user_id' => $teacher->id,
             'nombre' => 'Docente',
+            'apellido' => 'Apellido',
+            'telefono' => '0987654321',
+            'direccion' => 'Dirección del docente',
+            'fecha_nacimiento' => '1985-01-01',
+            'bio' => 'Biografía del docente',
+        ]);
+
+        $teacher = User::create([
+            'name' => 'Docente2',
+            'email' => 'docente2@gmail.com',
+            'password' => bcrypt('andresito'),
+            'email_verified_at' => null,
+        ]);
+        $teacher->roles()->attach($teacherRole); 
+
+        Profile::create([
+            'user_id' => $teacher->id,
+            'nombre' => 'Docente2',
             'apellido' => 'Apellido',
             'telefono' => '0987654321',
             'direccion' => 'Dirección del docente',

@@ -38,7 +38,8 @@
                         class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                         id="user-menu-button" aria-expanded="false">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full" src="{{ asset($profile->foto_perfil) }}" alt="user photo">
+                        <img class="w-10 h-10 rounded-full object-cover" src="{{ asset($profile->foto_perfil) }}"
+                            alt="user photo">
                     </button>
                     <!-- Dropdown menu -->
                     <div class="absolute hidden top-10 right-0 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"

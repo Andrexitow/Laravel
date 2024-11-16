@@ -14,15 +14,21 @@ class CheckSessionExpiration
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle($request, Closure $next)
     {
-        // if (session()->has('expires_at') && now()->greaterThan(session('expires_at'))) {
-        //     Auth::logout(); 
-        //     session()->flush(); 
-        //     return redirect()->route('login');
-        // }
+        if (Auth::check()) {
+            // Verifica si la sesión ha expirado
+            if (session('expires_at') && now()->greaterThanOrEqualTo(session('expires_at'))) {
+                Auth::logout();
+                session()->flush();
 
-        // return $next($request);
+                // Pasar un mensaje de expiración de sesión a la vista
+                return redirect()->route('login')->with('session_expired', 'Tu sesión ha expirado, por favor inicia sesión nuevamente');
+            }
+            // session(['expires_at' => now()->addSeconds(5)]);
+            session(['expires_at' => now()->addMinutes(15)]);
+        }
+
         return $next($request);
     }
 }

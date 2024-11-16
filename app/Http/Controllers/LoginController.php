@@ -18,14 +18,18 @@ class LoginController extends Controller
     {
         $credential = $request->only('email', 'password');
         $user = User::where('email', $credential['email'])->first();
+
         if ($user && Hash::check($credential['password'], $user->password)) {
             Auth::login($user);
-            session(['expires_at' => now()->addMinutes(15)]);
-            return redirect()->route('home')->with('message', 'Sesion iniciada');
+
+            session(['expires_at' => now()->addMinutes(15)]); 
+
+            return redirect()->route('home')->with('message', 'Sesión iniciada');
         } else {
             return redirect()->back()->withErrors(['Invalid email or password']);
         }
     }
+
 
     public function logout()
     {

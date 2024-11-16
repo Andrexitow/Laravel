@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -12,9 +11,9 @@ class HomeController extends Controller
 
         if (Auth::check()) {
             $users = Auth::user();
-            $profile = $users->profile;
+            // $profile = $users->profile;
 
-            return view('welcome-user', compact('users', 'profile'));
+            return view('welcome-user', compact('users'));
         } else {
             return view('welcome-app');
         }

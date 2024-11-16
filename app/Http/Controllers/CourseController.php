@@ -12,7 +12,7 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::where('is_active', 1)->orderBy('id', 'desc')->paginate(3);
+        $courses = Course::where('is_active', 1)->orderBy('id', 'desc')->paginate(1);
         return view('course.index', compact('courses'));
     }
 
@@ -25,16 +25,21 @@ class CourseController extends Controller
 
     public function publication($courseId, $publicationId)
     {
+        $user = Auth::user();
+
         $publication = Publication::where('id', $publicationId)
             ->where('course_id', $courseId)
             ->firstOrFail();
 
-        // Obtener la entrega (si existe) de este usuario para la publicación
-        $submission = Submission::where('publication_id', $publicationId)
-            ->where('user_id', Auth::id())
+        $submission = Submission::where('user_id', $user->id)
+            ->where('publication_id', $publicationId)
             ->first();
 
-        return view('course.showPublication', compact('publication', 'courseId', 'submission'));
+        $students = Submission::where('publication_id', $publicationId)
+            ->with('user.profile')
+            ->get();
+
+        return view('course.showPublication', compact('publication', 'courseId', 'submission', 'students'));
     }
 
     public function uploadFile(Request $request, $courseId, $publicationId)
@@ -70,16 +75,16 @@ class CourseController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             // Generar un nombre único para la imagen
             $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
-        
+
             // Mover la imagen a la carpeta 'public/course_img'
             $request->file('image')->move(public_path('course_img'), $fileName);
-        
+
             // Guardar la ruta relativa en el modelo
             $imageUrl = 'course_img/' . $fileName;
         } else {
             return response()->json(['error' => 'Error al subir la imagen.'], 400);
         }
-        
+
 
 
         $course = new Course();
@@ -121,8 +126,6 @@ class CourseController extends Controller
 
             $course->image_url = 'course_img/' . $fileName;
         }
-
-
 
         $course->title = $request->title;
         $course->description = $request->description;
