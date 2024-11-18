@@ -25,11 +25,11 @@
                     <p class="text-gray-600 text-sm mt-2 text-center">
                         {{ Str::limit($cours->description, 100) }}
                     </p>
-
+        
                     <!-- Botones de edición y eliminación solo para 'teacher' -->
                     @if(auth()->user()->hasRole('teacher'))
                         <div class="mt-4 flex justify-between w-full">
-                            <a href=" {{ route('course.edit', $cours->id) }} " class="text-blue-500 hover:underline text-sm">
+                            <a href="{{ route('course.edit', $cours->id) }}" class="text-blue-500 hover:underline text-sm">
                                 Editar
                             </a>
                             <form action="" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este curso?')">
@@ -44,6 +44,7 @@
                 </div>
             @endforeach
         </div>
+        
 
         <!-- Paginación -->
         <div class="mt-6 w-full max-w-lg">

@@ -18,6 +18,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubmissionController;
+use App\Models\Course;
 
 Route::middleware([CheckSessionExpiration::class])->group(function () {
     Route::get('/', HomeController::class)->name('home');
@@ -42,6 +43,8 @@ Route::middleware([CheckSessionExpiration::class])->group(function () {
 
     Route::get('/course/create', [CourseController::class, 'index_create'])->name('course.create');
     Route::post('/course/create', [CourseController::class, 'store'])->name('course.store');
+    Route::get('/courses/create-post', [CourseController::class, 'index_create_post'])->name('course.create.post');
+
 
     Route::get('/course/edit/{edit}', [CourseController::class, 'edit'])->name('course.edit');
     Route::put('/course/{id}/update', [CourseController::class, 'update'])->name('course.update');

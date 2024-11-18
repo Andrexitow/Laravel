@@ -1,13 +1,11 @@
 @php
-    $isHomeEnable =
-        Route::currentRouteName() === 'home'
-            ? 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
-            : 'dark:text-white text-gray-600 dark:text-gray-500';
+    $isHomeEnable = Route::currentRouteName() === 'home'
+        ? 'block py-2 px-3 text-blue-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-blue-400'
+        : 'block py-2 px-3 text-gray-600 hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-gray-400';
 
-    $isCourseEnable =
-        Route::currentRouteName() === 'course.index'
-            ? 'block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700'
-            : 'dark:text-white text-gray-600 dark:text-gray-500';
+    $isCourseEnable = Route::currentRouteName() === 'course.index'
+        ? 'block py-2 px-3 text-blue-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-blue-400'
+        : 'block py-2 px-3 text-gray-600 hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-gray-400';
 @endphp
 
 <!DOCTYPE html>
@@ -86,7 +84,7 @@
                         <li><a href=" {{ route('home') }} " class="{{ $isHomeEnable }}" aria-current="page">Home</a>
                         </li>
                         <li><a href=" {{ route('course.index') }} "
-                                class="block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ $isCourseEnable }}">Course</a>
+                                class="{{ $isCourseEnable }}">Course</a>
                         </li>
                         <li><a href="#"
                                 class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Services</a>
@@ -130,7 +128,11 @@
 
     </main>
 
-    <footer></footer>
+    <footer class="bg-blue-600 text-white py-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; {{ now()->year }} TalentoTech. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

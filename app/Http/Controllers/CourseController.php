@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\User;
 use App\Models\Submission;
 use App\Models\Publication;
 use Illuminate\Http\Request;
@@ -12,15 +13,31 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = Course::where('is_active', 1)->orderBy('id', 'desc')->paginate(1);
-        return view('course.index', compact('courses'));
+        // Verificar si el usuario está autenticado
+        if (Auth::check()) {
+            $user = Auth::user(); // Obtener el usuario logueado
+            $courses = Course::whereHas('users', function ($query) {
+                $query->where('user_id', Auth::id()); // Filtrar por el ID del usuario logueado
+            })->paginate(3);  // Obtener cursos del usuario logueado
+
+            return view('course.index', compact('courses'));
+        } else {
+            // Redirige a la página de inicio de sesión si el usuario no está autenticado
+            return redirect()->route('login');
+        }
     }
+
+    public function index_create_post()
+    {
+        return view('posts.create');
+    }
+
 
     public function show(Course $course)
     {
         $publications = $course->publications()->where('is_active', true)->get();
-
-        return view('course.show', compact('course', 'publications'));
+        $users = $course->users;
+        return view('course.show', compact('course', 'publications', 'users'));
     }
 
     public function publication($courseId, $publicationId)
@@ -71,22 +88,17 @@ class CourseController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
 
-        // Procesar la imagen y guardarla
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             // Generar un nombre único para la imagen
             $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
-
             // Mover la imagen a la carpeta 'public/course_img'
             $request->file('image')->move(public_path('course_img'), $fileName);
-
-            // Guardar la ruta relativa en el modelo
             $imageUrl = 'course_img/' . $fileName;
         } else {
             return response()->json(['error' => 'Error al subir la imagen.'], 400);
         }
 
-
-
+        // Crear un nuevo curso
         $course = new Course();
         $course->title = $request->title;
         $course->description = $request->description;
@@ -95,8 +107,46 @@ class CourseController extends Controller
         $course->end_date = $request->end_date;
         $course->save();
 
+        // Asociar el curso con el usuario logueado en la tabla pivote
+        $course->users()->attach(Auth::id(), ['role' => 'teacher']); // Añadir rol opcionalmente
+
         return redirect()->route('course.index');
     }
+
+
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'title' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'image' => 'required|file|mimes:jpg,png|max:2048',
+    //         'start_date' => 'required|date',
+    //         'end_date' => 'required|date|after_or_equal:start_date',
+    //     ]);
+
+    //     if ($request->hasFile('image') && $request->file('image')->isValid()) {
+    //         // Generar un nombre único para la imagen
+    //         $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
+    //         // Mover la imagen a la carpeta 'public/course_img'
+    //         $request->file('image')->move(public_path('course_img'), $fileName);
+    //         // Guardar la ruta relativa en el modelo
+    //         $imageUrl = 'course_img/' . $fileName;
+    //     } else {
+    //         return response()->json(['error' => 'Error al subir la imagen.'], 400);
+    //     }
+
+
+
+    //     $course = new Course();
+    //     $course->title = $request->title;
+    //     $course->description = $request->description;
+    //     $course->image_url = $imageUrl;
+    //     $course->start_date = $request->start_date;
+    //     $course->end_date = $request->end_date;
+    //     $course->save();
+
+    //     return redirect()->route('course.index');
+    // }
 
     public function edit($edit)
     {

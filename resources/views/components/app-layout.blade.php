@@ -62,7 +62,11 @@
 
     </main>
 
-    <footer></footer>
+    <footer class="bg-blue-600 text-white py-4 mt-8">
+        <div class="container mx-auto text-center">
+            <p>&copy; {{ now()->year }} TalentoTech. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

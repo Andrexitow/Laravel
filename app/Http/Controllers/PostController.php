@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(){
-        $posts = Course::orderBy('id', 'desc')->paginate(3);
+        $posts = Course::where('is_active', 1)->orderBy('id', 'desc')->paginate(3);
         return view('posts.index', compact('posts'));
     }
 

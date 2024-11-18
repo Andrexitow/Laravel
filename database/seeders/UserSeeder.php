@@ -33,6 +33,7 @@ class UserSeeder extends Seeder
             'telefono' => '1234567890',
             'direccion' => 'Dirección del estudiante',
             'fecha_nacimiento' => '2000-01-01',
+            'foto_perfil' => 'user_img/1731963034_user.png',
             'bio' => 'Biografía del estudiante',
         ]);
 
@@ -87,6 +88,7 @@ class UserSeeder extends Seeder
             'telefono' => '0987654321',
             'direccion' => 'Dirección del docente',
             'fecha_nacimiento' => '1985-01-01',
+            'foto_perfil' => 'user_img/1731963034_user.png',
             'bio' => 'Biografía del docente',
         ]);
 
