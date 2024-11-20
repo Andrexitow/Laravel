@@ -7,7 +7,7 @@
 
             <!-- Formulario de creación -->
             {{-- {{ route('course.publication.store', $course->id) }} --}}
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action=" {{ route('course.create.post.store') }} " method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Campo para el título -->
@@ -23,6 +23,14 @@
                     <label for="content" class="block text-lg font-semibold text-gray-700 mb-2">Contenido</label>
                     <textarea id="content" name="content" rows="10" 
                               class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"></textarea>
+                </div>
+
+                <!-- Campo para la fecha límite -->
+                <div class="mb-4">
+                    <label for="deadline" class="block text-lg font-semibold text-gray-700 mb-2">Fecha límite</label>
+                    <input type="date" name="deadline" id="deadline" 
+                           class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" 
+                           required>
                 </div>
 
                 <!-- Campo para subir documentos -->

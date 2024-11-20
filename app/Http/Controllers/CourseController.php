@@ -13,16 +13,14 @@ class CourseController extends Controller
 {
     public function index()
     {
-        // Verificar si el usuario está autenticado
         if (Auth::check()) {
-            $user = Auth::user(); // Obtener el usuario logueado
+            $user = Auth::user();
             $courses = Course::whereHas('users', function ($query) {
-                $query->where('user_id', Auth::id()); // Filtrar por el ID del usuario logueado
-            })->paginate(3);  // Obtener cursos del usuario logueado
+                $query->where('user_id', Auth::id());
+            })->paginate(3);
 
             return view('course.index', compact('courses'));
         } else {
-            // Redirige a la página de inicio de sesión si el usuario no está autenticado
             return redirect()->route('login');
         }
     }
@@ -31,6 +29,36 @@ class CourseController extends Controller
     {
         return view('posts.create');
     }
+
+    public function store_post(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required|exists:courses,id', // Validar que el curso exista
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'deadline' => 'required|date|after:today', // Validar que la fecha sea futura
+            'is_active' => 'required|boolean',
+        ]);
+
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Crear una nueva instancia del modelo
+        $publicacion = new Publication(); // Modelo asociado a la tabla 'publicaciones'
+        $publicacion->course_id = $request->('course_id');
+        $publicacion->user_id = $user->id;
+        $publicacion->title = $request->input('title');
+        $publicacion->content = $request->input('content');
+        $publicacion->deadline = $request->input('deadline');
+        $publicacion->is_active = $request->input('is_active');
+
+        // Guardar en la base de datos
+        $publicacion->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('publicaciones.index')->with('success', 'Publicación guardada exitosamente.');
+    }
+
 
 
     public function show(Course $course)
@@ -112,41 +140,6 @@ class CourseController extends Controller
 
         return redirect()->route('course.index');
     }
-
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //         'image' => 'required|file|mimes:jpg,png|max:2048',
-    //         'start_date' => 'required|date',
-    //         'end_date' => 'required|date|after_or_equal:start_date',
-    //     ]);
-
-    //     if ($request->hasFile('image') && $request->file('image')->isValid()) {
-    //         // Generar un nombre único para la imagen
-    //         $fileName = time() . '_' . $request->file('image')->getClientOriginalName();
-    //         // Mover la imagen a la carpeta 'public/course_img'
-    //         $request->file('image')->move(public_path('course_img'), $fileName);
-    //         // Guardar la ruta relativa en el modelo
-    //         $imageUrl = 'course_img/' . $fileName;
-    //     } else {
-    //         return response()->json(['error' => 'Error al subir la imagen.'], 400);
-    //     }
-
-
-
-    //     $course = new Course();
-    //     $course->title = $request->title;
-    //     $course->description = $request->description;
-    //     $course->image_url = $imageUrl;
-    //     $course->start_date = $request->start_date;
-    //     $course->end_date = $request->end_date;
-    //     $course->save();
-
-    //     return redirect()->route('course.index');
-    // }
 
     public function edit($edit)
     {

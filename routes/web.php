@@ -23,6 +23,9 @@ use App\Models\Course;
 Route::middleware([CheckSessionExpiration::class])->group(function () {
     Route::get('/', HomeController::class)->name('home');
 
+    Route::get('/posts',  [PostController::class, 'index'])->name('public');
+    Route::get('/contact', [PostController::class, 'index_contac'])->name('contacto');
+
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'login_validate'])->name('login_validate');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -33,17 +36,18 @@ Route::middleware([CheckSessionExpiration::class])->group(function () {
     Route::get('/register', [RegisterController::class, 'index'])->name('singup');
     Route::post('/register', [RegisterController::class, 'signup_validate'])->name('singupvalidate');
 
-    Route::get('/posts',  [PostController::class, 'index'])->name('public');
-    Route::get('/contact', [PostController::class, 'index_contac'])->name('contacto');
+
 
     Route::get('/courses', [CourseController::class, 'index'])->name('course.index');
     Route::get('/courses/{course}/publications', [CourseController::class, 'show'])->name('course.show');
     Route::get('/courses/{course}/publications/{publication}', [CourseController::class, 'publication'])->name('course.publication');
     Route::post('/courses/{course}/publications/{publication}/submit', [SubmissionController::class, 'store'])->name('submission.store')->middleware('auth');
 
-    Route::get('/course/create', [CourseController::class, 'index_create'])->name('course.create');
-    Route::post('/course/create', [CourseController::class, 'store'])->name('course.store');
+    Route::get('/course/create-course', [CourseController::class, 'index_create'])->name('course.create');
+    Route::post('/course/create-course', [CourseController::class, 'store'])->name('course.store');
+
     Route::get('/courses/create-post', [CourseController::class, 'index_create_post'])->name('course.create.post');
+    Route::post('/courses/create-post', [CourseController::class, 'store_post'])->name('course.create.post.store');
 
 
     Route::get('/course/edit/{edit}', [CourseController::class, 'edit'])->name('course.edit');
